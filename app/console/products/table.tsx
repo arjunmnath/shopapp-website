@@ -205,7 +205,7 @@ const TableActions = (props:{row:any}) => {
             <DropdownMenuContent key={props.row.getValue('productId')} align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(`Name: ${row.getValue('name')}\n Price: ${row.getValue('price')}`)}
+                    onClick={() => navigator.clipboard.writeText(`Name: ${props.row.getValue('name')}\n Price: ${props.row.getValue('price')}`)}
                 >
                     Copy Product Details
                 </DropdownMenuItem>

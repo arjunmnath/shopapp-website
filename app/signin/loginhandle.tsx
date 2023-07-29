@@ -124,7 +124,7 @@ const LoginHandle = (props: propsType) => {
                 <DialogHeader>
                     <DialogTitle>Authentication</DialogTitle>
                     <DialogDescription>
-                        {disabled ? <>Trying To Login Using Mail '{props.email}'</> : <>The Authentication Code Has Been Send To {props.email}</>}
+                        {disabled ? <>Trying To Login Using Mail &apos;{props.email}&apos;</> : <>The Authentication Code Has Been Send To {props.email}</>}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
