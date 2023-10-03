@@ -71,7 +71,20 @@
   * {
     @apply border-border;
   }
-  body {
+  body, body:fullscreen {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .active {
+    color: white;
+    background-color: rgb(15 23 42 / var(--tw-bg-opacity));;
+  }
+  .deactive {
+    color: #a1a1a1;
+  }
+  .background {
+    background-color: hsl(var(--background));
   }
 }

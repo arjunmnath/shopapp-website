@@ -7,3 +7,10 @@ input::-webkit-inner-spin-button {
   width: 0px;
   background: none;  
 }
+
+/* @layer components {
+  .active {
+    color: red;
+    background-color: aliceblue;
+  }
+} */

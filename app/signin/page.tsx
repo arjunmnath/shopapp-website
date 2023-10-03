@@ -1,19 +1,12 @@
-"use client";
-
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-
 import { UserAuthForm } from "./user-auth-form";
 import { Assests } from "../static/assest";
-import { useState } from "react";
 import CheckLogin from "@/components/checklogin";
 const AuthPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
   return (
     <div>
-      <CheckLogin next='/console' fallback="/signin"/>
-
+      {/* <CheckLogin next='/console' fallback="/signin"/> */}
       <div className=" backdrop-blur-sm w-screen  h-screen absolute top-0 left-0 flex justify-center items-center">
       <Assests.SignInBackground/>
       <div className="flex flex-row items-center justify-center border border-[rgba(255,255,255,0.1)] w-[40vw] h-[75vh] rounded-lg relative bg-background" >
@@ -29,16 +22,16 @@ const AuthPage = () => {
             </div>
             <UserAuthForm />
             <p className="px-8 text-center text-sm bg-background text-muted-foreground text-text">
-              By clicking continue, you agree to our{" "}
+              By clicking continue, you agree to our
               <Link
-                href="/terms"
+                href="/docs/terms"
                 className="underline p-1 underline-offset-4 hover:text-slate-300"
               >
                 Terms of Service
               </Link>
               and
               <Link
-                href="/privacy"
+                href="/docs/privacy"
                 className="underline p-1 underline-offset-4 hover:text-slate-300"
               >
                 Privacy Policy

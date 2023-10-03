@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Menu from "./header-utils/menu";
 import { Assests } from "@/app/static/assest";
-
+import FullScreenToggle from "./header-utils/fullscreen";
 const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,13 +32,12 @@ const Header: React.FC = () => {
   }, []);
   return <div style={mounted ? mountedStyle : unmountedStyle}>
     <div className="sticky bg-background h-16 box shadow-lg flex items-center">
-
-      {mounted ? <HeaderContent isLoggedin={isLoggedIn} /> : <HeaderSekeleton />}
+      {mounted ? <HeaderContent isLoggedin={isLoggedIn} /> : <HeaderSkeleton />}
     </div>
   </div>;
 };
 
-const HeaderSekeleton: React.FC = () => {
+const HeaderSkeleton: React.FC = () => {
   return (
     <>
       <Skeleton className="h-10 w-10 m-4 rounded-full" />
@@ -47,6 +46,7 @@ const HeaderSekeleton: React.FC = () => {
         <Skeleton className="p-2 w-4/5 h-10" />
       </div>
       <div className="px-4 flex flex-row w-1/5 justify-end gap-6">
+        <Skeleton className="h-10 w-10  rounded-full" />
         <Skeleton className="h-10 w-10  rounded-full" />
         <Skeleton className="h-10 w-10  rounded-full" />
         <Skeleton className="h-10 w-10  rounded-full" />
@@ -61,9 +61,9 @@ const HeaderContent = (props: { isLoggedin: boolean }) => {
   const router = useRouter()
   return (
     <>
-<Menu/>
+      <Menu />
       <div className="w-1/5 px-4">
-        <Assests.Logo/>
+        <Assests.Logo />
       </div>
       <div className="w-3/5 flex flex-row justify-center items-center">
         <Input className="p-2 w-4/5" placeholder="Search..." type="text" />
@@ -71,6 +71,7 @@ const HeaderContent = (props: { isLoggedin: boolean }) => {
       {props.isLoggedin ?
         <div className="px-4 flex flex-row w-1/5 justify-end gap-6">
           <Debug />
+          <FullScreenToggle />
           <ThemeToggle />
           <Tweaks />
           <Profile src="/test.jpg" alt="@arjunmnath" fallback="AM" />
@@ -78,7 +79,6 @@ const HeaderContent = (props: { isLoggedin: boolean }) => {
         <div className="w-1/5 flex gap-3 justify-end mr-4 pr-2">
           <Button className="w-1/2" variant="outline">Login</Button>
           <Button className="w-1/2" onClick={() => router.push('/signin')}>Signin</Button>
-
         </div>
       }
     </>

@@ -1,8 +1,7 @@
-'use client'
 
-import CheckLogin from "@/components/checklogin"
+import CheckLogin from "@/lib/verify"
 
 export default function App () {
-
-    return <CheckLogin next='/console' fallback="/signin"/>
+    CheckLogin({next:'/console/dashboard'})
+    
 }

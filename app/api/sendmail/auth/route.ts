@@ -2,17 +2,18 @@ import { render } from "@react-email/render";
 import MailBody from './template'
 import { sendEmail } from "@/lib/sendmail";
 import { NextResponse } from "next/server";
-import {OTP} from '@/lib/utility'
+import { OTP } from '@/lib/utility'
 import * as db from '@/lib/dbhandle'
 import { v4 as uuidv4 } from 'uuid';
 import { addMins } from "@/lib/utility";
 import { readDataMany, deleteDataMany } from "@/lib/dbhandle";
+import { cookies } from "next/headers";
 export async function GET(request: Request) {
   const otp = OTP()
   const id = uuidv4()
   const d = new Date().getTime();
   const { searchParams } = new URL(request.url)
-
+  const cookieStore = cookies()
   try {
     const mail: any = searchParams.get('mail')
     const _tmp: any = searchParams.get('utf8')
@@ -61,7 +62,10 @@ export async function GET(request: Request) {
             }
           ]
         })
-        return NextResponse.json({ success: true, id: id, env: process.env.MONGODB_URI, code: 200, message: 'Note: Mail Has Has Been Sent' });
+        cookieStore.set('authid', id, {
+          secure:true
+      })
+        return NextResponse.json({ success: true, id: id, code: 200, message: 'Note: Mail Has Has Been Sent' });
       } else {
         return NextResponse.json({ success: false, code: 503, message: 'Warning: Error In Sending Email' })
       }

@@ -7,7 +7,7 @@ import {GenerateId, OTP} from "@/lib/utility";
 
 type requestType = {
     utx: string,
-    name: string,
+    productName: string,
     stock: number,
     costPrice: number,
     sellingPrice: number,
@@ -23,20 +23,20 @@ export async function POST(request: Request) {
                 "clientToken": body.utx,
             }
         });
-        if (body.profit<=0 || body.costPrice <=0 || body.sellingPrice<= 0|| body.stock<= 0 || body.name === '') {
+        if (body.profit<=0 || body.costPrice <=0 || body.sellingPrice<= 0|| body.stock<= 0 || body.productName === '') {
             return NextResponse.json({ success: false, code: 400, message: 'Warning: Bad Request, Invalid Product Receieved' })
         } else if (data !== null) {
             const collectionName = `${data.clientId}-products`
             await writeData({
                 collection: collectionName,
                 data: [{
-                    productName: body.name,
+                    productName: body.productName,
                     stock: body.stock,
                     costPrice: body.costPrice,
                     sellingPrice: body.sellingPrice,
                     profit: body.profit,
                     productId: GenerateId(10),
-                    stockUpdateOn: new Date().toLocaleString()
+                    stockUpdate: new Date().toLocaleString()
 
                 }]
             }).catch(err => {

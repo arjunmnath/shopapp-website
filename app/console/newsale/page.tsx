@@ -1,6 +1,11 @@
-const Page = () => {
-    return <>new sale page</>
+import Page from './mainpage'
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+    title: "Add New Sale"
 }
 
-
-export default Page;
+export default function App() {
+    return <Page />
+}

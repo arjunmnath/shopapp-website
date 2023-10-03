@@ -2,7 +2,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 
 
 
-const uri: any = process.env.MONGODB_URI
+const uri: any = process.env.MONGO_URI
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -18,7 +18,7 @@ interface writeProps {
     collection: string
 }
 
-interface createCollectionProps  {
+interface createCollectionProps {
     name: string
 }
 
@@ -27,7 +27,7 @@ interface readProps {
     query: { [key: string]: any }
 }
 
-interface updateProps  {
+interface updateProps {
     collection: string,
     query: { [key: string]: any },
     newdata: { [key: string]: any }
@@ -53,15 +53,14 @@ const writeData = async (params: writeProps) => {
 
 const readDataMany = async (params: readProps) => {
     try {
-        const data: Array<{ [key: string]: any }> = []
         await client.connect();
         const db = client.db(process.env.DB_NAME);
         const coll = db.collection(params.collection);
-        const res: any = await coll.find(params.query)
-        for await (const key of res) {
-            data.push(key)
-        }
-        return data
+        const res: any = await coll.find(params.query).toArray()
+        return res.map((obj: { _id?: string; }) => {
+            delete obj['_id']
+            return obj
+        })
     } finally {
         await client.close()
     }
@@ -97,7 +96,7 @@ const updateDataOne = async (params: updateProps) => {
 }
 
 
-const deleteDataMany = async (params:deleteManyProps) => {
+const deleteDataMany = async (params: deleteManyProps) => {
     try {
         await client.connect();
         const db = client.db(process.env.DB_NAME)
@@ -108,7 +107,7 @@ const deleteDataMany = async (params:deleteManyProps) => {
         await client.close();
     }
 }
-const deleteDataOne = async (params:deleteManyProps) => {
+const deleteDataOne = async (params: deleteManyProps) => {
     try {
         await client.connect();
         const db = client.db(process.env.DB_NAME)
@@ -121,8 +120,28 @@ const deleteDataOne = async (params:deleteManyProps) => {
 }
 
 
+const readDataManyMultiple = async (params: readProps[]) => {
+    try {
+        await client.connect();
+        const db = client.db(process.env.DB_NAME);
+        let data:{ [key: string]: any } = {}
+        await Promise.all(params.map(async (param) => {
+            const index = param.collection.split('-')[1]
+            const coll = db.collection(param.collection)
+            const res: any = await coll.find(param.query).toArray()
+            data[index] = res.map((obj: { _id?: string; }) => {
+                delete obj['_id']
+                return obj
+            })
+        }))
+        return data
+    } finally {
+        await client.close()
+    }
+}
 
-const createCollection = async (params:createCollectionProps) => {
+
+const createCollection = async (params: createCollectionProps) => {
     try {
         await client.connect()
         const db = client.db(process.env.DB_NAME)
@@ -140,5 +159,6 @@ export {
     updateDataOne,
     deleteDataMany,
     createCollection,
-    deleteDataOne
+    deleteDataOne,
+    readDataManyMultiple
 }

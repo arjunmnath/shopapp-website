@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { readDataOne, updateDataOne,  } from "@/lib/dbhandle";
+import { generateKey } from "@/lib/encryption";
 
 type requestType = {
     authid: string
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
                         ]                        
                     }
                 }).catch(error => console.log(error));
-                return NextResponse.json({ success: response?.acknowledged, clientToken:clientDetails?.clientToken, message: 'Note: Successfully authenticated', code: 200 });
+                return NextResponse.json({ success: response?.acknowledged, clientToken:clientDetails?.clientToken, FernetKey: generateKey(),  message: 'Note: Successfully authenticated', code: 200 });
             } else {
                 return NextResponse.json({ success: false, valid: {
                     data: valid,

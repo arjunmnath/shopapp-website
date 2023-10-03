@@ -36,16 +36,9 @@ import {
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { columns } from './table'
-type Product = {
-    productId: string,
-    name: string,
-    stock: number,
-    price: number,
-    stockUpdate: string
-}
-
+import type { Products } from "@/types/product"
 interface productMenuProps {
-    data: Array<{ [key: string]: any }>
+    data: Products,
     setProductData: () => Promise<void>,
 }
 
@@ -56,7 +49,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 import { Input } from "@/components/ui/input"
-import DownloadData from "./components/downloadcsv"
+import DownloadData from "@/components/exportascsv"
 
 function DataTable<TData, TValue>({
     columns,
@@ -126,7 +119,15 @@ function DataTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <AddNewProduct setProductData={setProductData} />
-                <DownloadData data={data} filename='ProdcutDetails.csv' />
+                <DownloadData headers={[
+                    { displayName: "ProductId", id: 'productId', },
+                    { displayName: "ProductName", id: 'name', },
+                    { displayName: "Current Stock", id: 'stock' },
+                    { displayName: "Cost Price", id: 'costPrice', },
+                    { displayName: "Selling Price", id: 'sellingPrice', },
+                    { displayName: "Profit", id: 'profit', },
+                    { displayName: "Last Stock Update", id: 'stockUpdate' }
+                ]} data={data} filename='ProdcutDetails.csv' />
             </div>
 
         </div>

@@ -1,14 +1,12 @@
 import { NextResponse } from "next/server";
-import { OTP } from '@/lib/utility'
 import * as db from '@/lib/dbhandle'
-import { v4 as uuidv4 } from 'uuid';
-import { addMins, GenerateId } from "@/lib/utility";
+import { Product } from "@/types/product";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
-    const id = GenerateId(10)
     try {
-        const token: any = searchParams.get('utx')
+        const token:any = searchParams.get('utx')
+        const min:any = searchParams.get('min')
         const userdetails = await db.readDataOne({
             collection: 'users', query: {
                 'clientToken': token
@@ -17,17 +15,18 @@ export async function GET(request: Request) {
         if (userdetails !== null) {
             const productdetails = await db.readDataMany({ collection: `${userdetails?.clientId}-products`, query: {} })
             return NextResponse.json({
-                success: true, code: 200, data: productdetails.map((product) => (
+                success: true, code: 200, data: productdetails.map((product:Product)=> (
                     {
-                        name: product.productName,
+                        productName: product.productName,
                         stock: product.stock,
                         profit: product.profit,
                         sellingPrice: product.sellingPrice,
                         costPrice: product.costPrice,
-                        stockUpdate: product.stockUpdateOn,
+                        stockUpdate: product.stockUpdate,
                         productId: product.productId
                     }
-                )), message: "Note: Api Request Successfully Completed"
+                )), message: "Note: Api Request Successfully Completed",
+                min: min
             })
         } else {
             return NextResponse.json({
@@ -36,6 +35,6 @@ export async function GET(request: Request) {
         }
 
     } catch (err) {
-        return NextResponse.json({ success: false, code: 500, message: 'Error: Api Error' })
+        return NextResponse.json({ success: false, code: 500, message: 'Error: Internal Api Error'});
     }
 }

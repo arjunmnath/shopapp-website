@@ -93,6 +93,7 @@ const SignInHandle = (props: propsType) => {
       console.log(content.message);
       if (content.success === true) {
         localStorage.setItem('clitkn', content.clientToken )
+        localStorage.setItem('krone', content.FernetKey )
         localStorage.setItem('iloin', JSON.stringify({val: true}))
         toast({
           title: 'Nice Job!',

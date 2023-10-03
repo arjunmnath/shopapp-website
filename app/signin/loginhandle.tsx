@@ -22,7 +22,6 @@ type propsType = {
 
 const LoginHandle = (props: propsType) => {
     const router = useRouter();
-
     const { toast } = useToast();
     const [disabled, setDisabled] = useState(true);
     const [otpval, setOtpVal] = useState('');
@@ -91,6 +90,7 @@ const LoginHandle = (props: propsType) => {
             console.log(content.message);
             if (content.success === true) {
                 localStorage.setItem('clitkn', content.clientToken)
+                localStorage.setItem('krone', content.FernetKey)
                 localStorage.setItem('iloin', JSON.stringify({ val: true }))
                 toast({
                     title: 'Nice Job!',

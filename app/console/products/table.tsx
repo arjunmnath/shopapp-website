@@ -32,15 +32,7 @@ import { useContext, useRef, useState } from "react"
 import { deleteProductAction } from "./deleteproduct"
 import { DataContext } from "./mainpage"
 import { useToast } from "@/components/ui/use-toast"
-type Product = {
-    productId: string,
-    name: string,
-    stock: number,
-    costPrice: number,
-    sellingPrice: number,
-    profit: number,
-    stockUpdate: string
-}
+import type { Product } from "@/types/product"
 
 const columns: ColumnDef<Product>[] = [
     {
@@ -52,7 +44,7 @@ const columns: ColumnDef<Product>[] = [
         enableHiding: true,
     },
     {
-        accessorKey: "name",
+        accessorKey: "productName",
         header: ({ column }) => {
             return (
                 <Button
@@ -64,8 +56,9 @@ const columns: ColumnDef<Product>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => (
-            <div>{row.getValue('name')}</div>),
+        cell: ({ row }) => {
+            return <div>{row.getValue('productName')}</div>
+        },
         enableSorting: true,
         enableHiding: true,
     },

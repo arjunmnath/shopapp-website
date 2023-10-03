@@ -1,4 +1,4 @@
-import { AlignJustify } from "lucide-react";
+import { AlignJustify, HelpCircle } from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -20,89 +20,27 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar";
-
-import {Assests} from '@/app/static/assest'
-
-
-const Details = {
-    imgPath: "/test.jpg",
-    Name: "Arjun Manjunath",
-    fallback: "AM",
+import { Dispatch, SetStateAction } from "react";
+import { Assests, IconProps } from '@/app/static/assest'
+import { usePathname, useRouter } from "next/navigation";
+import Link from 'next/link'
 
 
+
+interface NavigationProps {
+    check: string;
+    href: string;
+    label: string;
+    activeIcon: any;
+    nonActiveIcon: any;
 }
+
 const Menu = () => {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true)
-    }, [])
     return <>
-
-        <Sheet >
-            <SheetTrigger>
-                <div className="menuToggle p-2 m-2 hover:cursor-pointer rounded-3xl hover:bg-slate-800">
-                    <AlignJustify size={24} />
-                </div>
-            </SheetTrigger>
-            <SheetContent side='left'>
-                {mounted ? <MenuContent /> : <MenuSkeleton />}
-            </SheetContent>
-        </Sheet>
-    </>
-}
-
-const MenuContent = () => {
-    return <>
-        <div className="">
-            <SheetHeader className="flex flex-col gap-4 items-center px-3 pt-3">
-                <Avatar className="h-[150px] w-[150px]">
-                    <AvatarImage src={Details.imgPath} />
-                    <AvatarFallback color="pink">
-                        {Details.fallback}
-                    </AvatarFallback>
-                </Avatar>
-
-                <h4 className="text-xl font-bold tracking-tight">{Details.Name}</h4>
-                <div className="grid grid-cols-3 gap-3 p-3">
-                    <Button variant='secondary' className="flex flex-row gap-2">
-                        <PencilIcon className="" />
-
-                    </Button>
-                    <Button variant='secondary' className="flex flex-row gap-2">
-                        <FileText />
-
-                    </Button>
-                    <Button variant='secondary' className="flex flex-row gap-2">
-                        <DatabaseBackup className="" />
-                    </Button>
-                </div>
-            </SheetHeader>
-            <Separator />
-            <div className="navigation flex flex-col gap-2 py-4">
-                <div className="flex flex-row gap-4 items-center px-2">
-                    <Assests.Home/>
-                    <h2 className="text-xl text-[#a1a1a1]">Home</h2>
-                </div>
-                <div className="flex flex-row gap-4 items-center px-2">
-                    <BadgePercent color="#a1a1a1" className="h-8 w-8" />
-                    <h2 className="text-xl text-[#a1a1a1]">Credits</h2>
-                </div>
-                <div className="flex flex-row gap-4 items-center px-2">
-                    <HomeIcon className="h-8 w-8" />
-                    <h2 className="text-xl text-white">Home</h2>
-                </div>
-            </div>
-            <Separator />
-
-            <SheetFooter>
-                <SheetClose asChild>
-                    <Button variant='secondary'>
-                        <LogOutIcon className="m-1 p-1" />
-                        Logout
-                    </Button>
-                </SheetClose>
-            </SheetFooter>
+        <div className="menuToggle p-2 m-2 hover:cursor-pointer rounded-3xl hover:bg-slate-800">
+            <AlignJustify size={24} />
         </div>
+
     </>
 }
 
@@ -150,9 +88,4 @@ const MenuSkeleton = () => {
         </div>
     </>
 }
-
-
 export default Menu;
-
-
-
