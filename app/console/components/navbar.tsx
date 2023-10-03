@@ -72,7 +72,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     return (<>
         <Suspense fallback={<NavBarSkeleton pathdetails={urls} />}>
             <div className="h-full relative left-0 w-16 flex flex-col px-2">
-                <Navigation pathdetails={urls} /> 
+                <Navigation pathdetails={urls} />
                 <Separator className="" />
             </div>
         </Suspense>
@@ -85,16 +85,13 @@ const Navigation = (props: { pathdetails: NavigationProps[] }) => {
             {props.pathdetails.map(link => {
                 const isActive = pathname.search(link.check) > 0
                 return (
-                    <TooltipProvider >
+                    <TooltipProvider key={link.label}>
                         <Tooltip >
                             <TooltipTrigger>
                                 <Link
-                                    // onClick={() => props.SetSheetOpen(false)}
-                                    href={link.href}
-                                    key={link.label}>
+                                    href={link.href}>
                                     <div className={`${isActive ? 'active' : 'deactive'} w-full flex justify-center items-center h-14 py-4`}>
                                         {isActive ? <link.activeIcon /> : <link.nonActiveIcon />}
-
                                     </div>
                                 </Link>
                             </TooltipTrigger>
@@ -111,8 +108,8 @@ const Navigation = (props: { pathdetails: NavigationProps[] }) => {
 const NavBarSkeleton = (props: { pathdetails: NavigationProps[] }) => {
     return <>
         {props.pathdetails.map((link) => (
-            <div className="">
-                <Skeleton key={link.label} className="h-10 w-10 rounded-3xl my-2 mx-1" />
+            <div className="" key={link.label}>
+                <Skeleton className="h-10 w-10 rounded-3xl my-2 mx-1" />
             </div>
         ))}
         <Separator />
