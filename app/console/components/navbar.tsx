@@ -10,6 +10,8 @@ import {
 import Link from 'next/link'
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useState } from "react";
+import useMountAnimation from "@/components/usedelay";
 const urls = [
     {
         check: '/dashboard',
@@ -69,14 +71,28 @@ interface NavigationProps {
 
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
-    return (<>
-        <Suspense fallback={<NavBarSkeleton pathdetails={urls} />}>
-            <div className="h-full relative left-0 w-16 flex flex-col px-2">
-                <Navigation pathdetails={urls} />
-                <Separator className="" />
-            </div>
-        </Suspense>
-    </>);
+    'use client';
+    // const mountedStyle = { opacity: 1, transition: "opacity 1500ms ease-in" };
+    // const unmountedStyle = {
+    //     opacity: 0.5,
+    //     transition: "opacity 1500ms ease-in",
+    // };
+    // //fix passing mountedStyle and unmountedStyle
+    // const [mount, setMount] = useState<boolean>(false);
+    // useEffect(() => {
+    //     setMount(true);
+    // })
+    const useMount = useMountAnimation({
+        render: <>
+            <Navigation pathdetails={urls} />
+            <Separator className="" />
+        </>, fallback: <><NavBarSkeleton pathdetails={urls} /></>
+    })
+    return <>
+        <div className="h-full relative left-0 w-16 flex flex-col px-2" style={useMount.mount ? useMount.mountedStyle : useMount.unmountedStyle} >
+            <>{useMount.ContentOrSkeleton}</>
+        </div>
+    </>;
 }
 const Navigation = (props: { pathdetails: NavigationProps[] }) => {
     const pathname = usePathname()
@@ -109,7 +125,7 @@ const NavBarSkeleton = (props: { pathdetails: NavigationProps[] }) => {
     return <>
         {props.pathdetails.map((link) => (
             <div className="" key={link.label}>
-                <Skeleton className="h-10 w-10 rounded-3xl my-2 mx-1" />
+                <Skeleton className="h-12 w-12 rounded-2xl my-2 mx-1" />
             </div>
         ))}
         <Separator />

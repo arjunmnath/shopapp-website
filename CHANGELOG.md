@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.1] - 2023-10-03 (Unreleased)
 
 ### Added
-- Side Navigation Bar
+- Side Navigation Bar 🟠
+- mount animation for side navigation bar ✅
+- UseMountAnimation hook to animate mounting ✅
 
 ### Changed
-- Navigation via Side Sheet Menu
+- Navigation: Side sheet Menu -> side bar ✅
+- Header mount animation: Hardcode -> useMountAnimation hook 🔴
 
 
 ## [1.0.0] - 2023-08-15 (Unreleased)

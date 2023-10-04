@@ -8,31 +8,26 @@ import Profile from "./header-utils/avatar";
 import Debug from "./header-utils/test-toggle";
 import React, { HtmlHTMLAttributes, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import useDelayUnmount from "@/components/usedelay";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Menu from "./header-utils/menu";
 import { Assests } from "@/app/static/assest";
 import FullScreenToggle from "./header-utils/fullscreen";
+import useMountAnimation from "@/components/usedelay";
+
+
 const Header: React.FC = () => {
-  const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const shouldRenderChild = useDelayUnmount(mounted, 1500);
-  const mountedStyle = { opacity: 1, transition: "opacity 1500ms ease-in" };
-  const unmountedStyle = {
-    opacity: 0.5,
-    transition: "opacity 1500ms ease-in",
-  };
+  const useMount = useMountAnimation({ render: <><HeaderContent isLoggedin={isLoggedIn} /></>, fallback: <><HeaderSkeleton /></> });
   useEffect(() => {
-    setMounted(true);
     const _tmp: any = localStorage.getItem('iloin');
     if (_tmp !== null) {
       setIsLoggedIn(JSON.parse(_tmp).val)
     }
   }, []);
-  return <div style={mounted ? mountedStyle : unmountedStyle}>
+  return <div style={false ? useMount.mountedStyle : useMount.unmountedStyle}>
     <div className="sticky bg-background h-16 box shadow-lg flex items-center">
-      {mounted ? <HeaderContent isLoggedin={isLoggedIn} /> : <HeaderSkeleton />}
+      <>{useMount.ContentOrSkeleton}</>
     </div>
   </div>;
 };
