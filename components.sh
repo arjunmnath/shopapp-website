@@ -1,1 +1,1 @@
-npx shadcn-ui@latest add card button checkbox dropdown-menu input table toast dialog avatar tooltip label toggle skeleton --overwrite
+npx shadcn-ui@latest add card button checkbox dropdown-menu input table toast dialog avatar tooltip label toggle skeleton textarea --overwrite

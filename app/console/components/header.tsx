@@ -25,7 +25,7 @@ const Header: React.FC = () => {
       setIsLoggedIn(JSON.parse(_tmp).val)
     }
   }, []);
-  return <div style={false ? useMount.mountedStyle : useMount.unmountedStyle}>
+  return <div style={useMount.mount ? useMount.mountedStyle : useMount.unmountedStyle}>
     <div className="sticky bg-background h-16 box shadow-lg flex items-center">
       <>{useMount.ContentOrSkeleton}</>
     </div>

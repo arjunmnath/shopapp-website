@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { UseFormReturn } from "react-hook-form"
 import type { Clients } from "@/types/clients";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
@@ -8,7 +8,7 @@ interface clientDetailsProps {
     form: UseFormReturn | any | undefined,
     clients: Clients,
     isFetching: boolean,
-    fetchData: ()=> void,
+    fetchData: () => void,
 }
 import {
     Command,
@@ -32,12 +32,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Fetching from '@/components/fetching'
+import { Delete } from "lucide-react";
 
-const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsProps) => {
+const ClientDetails: React.FC<clientDetailsProps> = ({ form, clients, isFetching, fetchData }: clientDetailsProps): JSX.Element => {
+    'use client';
     const [popOverOpen, setPopOverOpen] = useState<boolean>(false)
     return <>
         <h2 className="text-xl font-bold tracking-tight p-4 justify-start">Client Details</h2>
-        <div className="flex flex-col gap-4 w-3/5">
+        <div className="flex flex-col gap-4 w-4/5">
             <FormField
                 control={form.control}
                 name="clientId"
@@ -54,7 +56,8 @@ const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsPr
                                                 role="combobox"
                                                 className={cn(
                                                     "w-[200px] justify-between",
-                                                    !field.value && "text-muted-foreground"
+                                                    !field.value && "text-muted-foreground",
+                                                    form.getValues('clientId') != undefined ? 'border-[#2faa24b6]' : '',
                                                 )}
                                             >
                                                 {field.value
@@ -86,7 +89,6 @@ const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsPr
                                                                 form.setValue("email", client.email)
                                                                 form.setValue("phone", client.phone)
                                                             }}
-
                                                         >
                                                             {client.clientName}
                                                             <CheckIcon
@@ -104,6 +106,12 @@ const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsPr
                                     </PopoverContent>
                                 </Popover>
                                 <FormMessage />
+                                <Button variant='ghost' onClick={(e) => {
+                                    e.preventDefault();
+                                    form.setValue("clientId", undefined)
+                                    form.setValue("email", undefined)
+                                    form.setValue("phone", undefined)
+                                }}><Delete /></Button>
                             </div>
                             <AddNewClient FetchClientData={fetchData} />
                         </div>
@@ -118,7 +126,7 @@ const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsPr
                         <div className="flex items-center gap-4">
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input disabled={true} value={form.getValues('email')} form="NewSaleFrom" />
+                                <Input disabled={true} className={form.getValues('email') != undefined ? 'border-[#3cca2f]' : ''} value={form.getValues('email')} form="NewSaleFrom" />
                             </FormControl>
                         </div>
                         <FormMessage />
@@ -129,11 +137,12 @@ const ClientDetails = ({ form, clients, isFetching, fetchData }: clientDetailsPr
                 control={form.control}
                 name="phone"
                 render={({ field }) => {
+                    console.log(form.getValues('phone'));
                     return <FormItem>
                         <div className="flex items-center gap-4">
                             <FormLabel>Phone</FormLabel>
                             <FormControl>
-                                <Input disabled={true} value={form.getValues('phone')} form="NewSaleFrom" />
+                                <Input disabled={true} className={form.getValues('phone') != undefined ? 'border-[#3cca2f]' : ''} value={form.getValues('phone')} form="NewSaleFrom" />
                             </FormControl>
                         </div>
                         <FormMessage />

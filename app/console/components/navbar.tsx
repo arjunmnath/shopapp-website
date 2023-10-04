@@ -72,16 +72,6 @@ interface NavigationProps {
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
     'use client';
-    // const mountedStyle = { opacity: 1, transition: "opacity 1500ms ease-in" };
-    // const unmountedStyle = {
-    //     opacity: 0.5,
-    //     transition: "opacity 1500ms ease-in",
-    // };
-    // //fix passing mountedStyle and unmountedStyle
-    // const [mount, setMount] = useState<boolean>(false);
-    // useEffect(() => {
-    //     setMount(true);
-    // })
     const useMount = useMountAnimation({
         render: <>
             <Navigation pathdetails={urls} />

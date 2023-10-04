@@ -12,7 +12,6 @@ import type { Clients } from '@/types/clients'
 import dynamic from "next/dynamic"
 
 
-
 const Page = () => {
   const FormSchema = z.object({
     clientId: z.string({
@@ -23,7 +22,16 @@ const Page = () => {
     loading: z.boolean(),
     credit: z.boolean(),
     sellingPrice: z.number().min(10).max(2000),
-    qty: z.number().min(0).max(300)
+    qty: z.number().min(0).max(300),
+    sitename: z.string().min(5).max(250),
+    streetaddress: z.string().min(5).max(250),
+    city: z.string().min(5).max(250),
+    district: z.string().min(5).max(250),
+    state: z.string().min(5).max(250),
+    pin: z.number().min(550000).max(700000),
+    driverName: z.string().min(5).max(100),
+    vehicleNo: z.string().min(5).max(12),
+    remarks: z.string()
   })
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -32,6 +40,10 @@ const Page = () => {
       credit: false,
       sellingPrice: 0,
       qty: 0,
+      state: "Kerala",
+      city: "Pazhayannur",
+      pin: 680587,
+      district: "Thrissur"
     }
   })
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
@@ -92,20 +104,23 @@ const Page = () => {
   });
   const BinarySection = dynamic(() => import('./components/creditloading'), {
     suspense: true
-  })
+  });
+  const AddressSection = dynamic(() => import('./components/addresssection'), {
+    suspense: true
+  });
   // TODO: Create a New Api for this Page ✅
   return (
     <div className="w-full">
       <Form {...form}>
         <form>
-
-          <h2 className="text-3xl font-bold tracking-tight p-4">New Sale</h2>
+          <h2 className="text-3xl font-bold tracking-tight pt-8 pl-8">New Sale</h2>
           <div className="flex flex-col justify-items-center items-center">
             <ClientDetails form={form} clients={clients} isFetching={isFetching} fetchData={fetchDataServer} />
             <ProductSection form={form} products={products} isFetching={isFetching} fetchData={fetchDataServer} />
+            <AddressSection form={form} />
             <BinarySection form={form} />
-            <Button onClick={form.handleSubmit(onSubmit)} >Submit</Button>
 
+            <Button className="mb-4" onClick={form.handleSubmit(onSubmit)} >Submit</Button>
           </div>
         </form>
       </Form>
