@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Navigation: Side sheet Menu -> side bar (2e3daac9) ✅
 - Header mount animation: Hardcode -> useMountAnimation hook (38b10944) 🔴
 
-
+### fix
+- Header Skeleton misalignment
 ## [1.0.0] - 2023-08-15 (Unreleased)
   
 Here we would have the update steps for 1.2.4 for people to follow.

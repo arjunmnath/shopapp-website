@@ -125,7 +125,7 @@ const NavBarSkeleton = (props: { pathdetails: NavigationProps[] }) => {
     return <>
         {props.pathdetails.map((link) => (
             <div className="" key={link.label}>
-                <Skeleton className="h-12 w-12 rounded-2xl my-2 mx-1" />
+                <Skeleton className="h-10 w-10 rounded-3xl my-2 mx-1" />
             </div>
         ))}
         <Separator />

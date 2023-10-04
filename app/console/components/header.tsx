@@ -40,12 +40,12 @@ const HeaderSkeleton: React.FC = () => {
       <div className="w-3/5 flex flex-row justify-center items-center">
         <Skeleton className="p-2 w-4/5 h-10" />
       </div>
-      <div className="px-4 flex flex-row w-1/5 justify-end gap-6">
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
+      <div className="px-4 flex flex-row w-1/5 justify-end gap-4">
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
       </div>
     </>
   );
