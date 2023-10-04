@@ -39,7 +39,7 @@ export async function POST(request: Request) {
             return NextResponse.json({
                 success: false, code: 400, message: 'Error: Bad Request ! Invalid Details received'
             })
-        } else if (data!==null) {
+        } else if (data !== null) {
             const collectionName = `${data.clientId}-sales`
             await db.writeData({
                 collection: collectionName,

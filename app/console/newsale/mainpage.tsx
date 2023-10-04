@@ -10,8 +10,10 @@ import { useState, useEffect, Suspense } from 'react'
 import type { Products } from "@/types/product"
 import type { Clients } from '@/types/clients'
 import dynamic from "next/dynamic"
-
-
+import ClientDetails from "./components/clientsection"
+import ProductSection from "./components/productdetails"
+import AddressSection from "./components/addresssection"
+import BinarySection from "./components/creditloading"
 const Page = () => {
   const FormSchema = z.object({
     clientId: z.string({
@@ -50,6 +52,9 @@ const Page = () => {
     }
   })
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    toast({
+      title: "Saving..."
+    })
     const requestPayload = {
       utx: localStorage.getItem('clitkn'),
       clientId: data.clientId,
@@ -141,20 +146,6 @@ const Page = () => {
       fetchDataServer()
     }
   }, [])
-
-  const ClientDetails = dynamic(() => import('./components/clientsection'), {
-    suspense: true
-  })
-  const ProductSection = dynamic(() => import('./components/productdetails'), {
-    suspense: true
-  });
-  const BinarySection = dynamic(() => import('./components/creditloading'), {
-    suspense: true
-  });
-  const AddressSection = dynamic(() => import('./components/addresssection'), {
-    suspense: true
-  });
-  // TODO: Create a New Api for this Page ✅
   return (
     <div className="w-full ml-10">
       <Form {...form}>

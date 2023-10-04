@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
-import useMountAnimation from "@/components/usedelay";
+import useMountAnimation from "@/components/usemountanimation";
 const urls = [
     {
         check: '/dashboard',

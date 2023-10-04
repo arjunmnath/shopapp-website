@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Menu from "./header-utils/menu";
 import { Assests } from "@/app/static/assest";
 import FullScreenToggle from "./header-utils/fullscreen";
-import useMountAnimation from "@/components/usedelay";
+import useMountAnimation from "@/components/usemountanimation";
 
 
 const Header: React.FC = () => {
