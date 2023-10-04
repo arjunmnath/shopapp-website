@@ -79,7 +79,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         </>, fallback: <><NavBarSkeleton pathdetails={urls} /></>
     })
     return <>
-        <div className="h-full relative left-0 w-16 flex flex-col px-2" style={useMount.mount ? useMount.mountedStyle : useMount.unmountedStyle} >
+        <div className="h-full fixed left-0 w-16 flex flex-col px-2" style={useMount.mount ? useMount.mountedStyle : useMount.unmountedStyle} >
             <>{useMount.ContentOrSkeleton}</>
         </div>
     </>;

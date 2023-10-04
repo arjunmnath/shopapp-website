@@ -3,6 +3,8 @@ import Header from "./components/header";
 import CheckLogin from "@/components/checklogin";
 import { CookiesProvider } from 'react-cookie';
 import Navbar from "./components/navbar";
+import "../custom.css";
+
 export default function RootLayout({
     children,
 }: {
@@ -10,16 +12,16 @@ export default function RootLayout({
 }) {
     return (
         <CookiesProvider>
-            <div id="root" className="background">
-                <CheckLogin next="" fallback="/signin" />
+            <div className="relative">
                 <Header />
-                <div className="flex flex-row">
+                <CheckLogin next="" fallback="/signin" />
+                <div className="flex flex-row relative z-[-1]">
                     <Navbar />
                     {children}
                 </div>
-
-
             </div>
+
+
         </CookiesProvider>
 
     );

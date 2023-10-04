@@ -60,7 +60,6 @@ const Page = () => {
   const [products, setProducts] = useState<Products>([])
   const [isFetching, setIsFetching] = useState<boolean>(true)
   const [clients, setClients] = useState<Clients>([])
-
   const fetchDataServer = async () => {
     const Encrypt = await import('@/lib/encryption').then(res => res.Encrypt)
     const key = localStorage.getItem('krone')
@@ -110,10 +109,10 @@ const Page = () => {
   });
   // TODO: Create a New Api for this Page ✅
   return (
-    <div className="w-full">
+    <div className="w-full ml-10">
       <Form {...form}>
         <form>
-          <h2 className="text-3xl font-bold tracking-tight pt-8 pl-8">New Sale</h2>
+          <h2 className="text-3xl font-bold tracking-tight pt-8 pl-12">New Sale</h2>
           <div className="flex flex-col justify-items-center items-center">
             <ClientDetails form={form} clients={clients} isFetching={isFetching} fetchData={fetchDataServer} />
             <ProductSection form={form} products={products} isFetching={isFetching} fetchData={fetchDataServer} />
