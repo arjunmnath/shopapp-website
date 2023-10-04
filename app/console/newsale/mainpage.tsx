@@ -17,6 +17,9 @@ const Page = () => {
     clientId: z.string({
       required_error: "Please select a client.",
     }),
+    productId: z.string({
+      required_error: "Please select a Product.",
+    }),
     email: z.string().email(),
     phone: z.number().min(1000000000).max(9999999999),
     loading: z.boolean(),
@@ -46,16 +49,60 @@ const Page = () => {
       district: "Thrissur"
     }
   })
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data)
-    toast({
-      title: "You submitted the following clientIds:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    const requestPayload = {
+      utx: localStorage.getItem('clitkn'),
+      clientId: data.clientId,
+      address: {
+        sitename: data.sitename,
+        streetaddress: data.streetaddress,
+        city: data.city,
+        district: data.district,
+        state: data.state,
+        pin: data.pin
+      },
+      carrier: {
+        name: data.driverName,
+        vehicleNo: data.vehicleNo,
+      },
+      product: {
+        productId: data.productId,
+        qty: data.qty,
+      },
+      remarks: data.remarks,
+      credit: data.credit,
+      loading: data.loading,
+    }
+    const res = await fetch('/api/newsale', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestPayload)
     })
+    const content = await res.json();
+    console.log(content.message)
+    if (content.success) {
+      toast({
+        title: "Way To Go!",
+        description: "New Sale Added!",
+      })
+    } else if (content.code === 404) {
+      toast({
+        title: "Oops!",
+        description: "Something Went Wrong, Try Logging In Again!",
+        variant: 'destructive'
+      })
+    } else {
+      toast({
+        title: "Oops!",
+        description: "Something Went Wrong",
+        variant: "destructive"
+      })
+    }
+
+
   }
   const [products, setProducts] = useState<Products>([])
   const [isFetching, setIsFetching] = useState<boolean>(true)
@@ -118,7 +165,6 @@ const Page = () => {
             <ProductSection form={form} products={products} isFetching={isFetching} fetchData={fetchDataServer} />
             <AddressSection form={form} />
             <BinarySection form={form} />
-
             <Button className="mb-4" onClick={form.handleSubmit(onSubmit)} >Submit</Button>
           </div>
         </form>

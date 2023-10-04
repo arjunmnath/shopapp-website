@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Side Navigation Bar 🟠
 - mount animation for side navigation bar [38b10944](https://github.com/arjunmnath/shopapp-website/commit/38b1094426b9a69e9041a940ac24cc419b675307) ✅
 - UseMountAnimation hook to animate mounting [38b10944](https://github.com/arjunmnath/shopapp-website/commit/38b1094426b9a69e9041a940ac24cc419b675307) ✅
+- POST Api for New sale 🔴
 
 ### Changed
 
@@ -21,9 +22,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### fix
 
-- Header Skeleton misalignment [9fd46ee](https://github.com/arjunmnath/shopapp-website/commit/9fd46ee42d4439fb9a74d94f73dba8aeec8f3003) ✅
-- Bug#1 Phone Number type mismatch on client and server side 🟠
-- Issue#1 Header not showing Sticky Behavior 🔴
+- Bug#1 Header Skeleton misalignment [9fd46ee](https://github.com/arjunmnath/shopapp-website/commit/9fd46ee42d4439fb9a74d94f73dba8aeec8f3003) ✅
+- Bug#2 Phone Number type mismatch on client and server side 🟠
+- Bug#3 Header not showing Sticky Behavior [0ac6ff26](https://github.com/arjunmnath/shopapp-website/commit/0ac6ff26e2b291b28320d5a71d04734ce665d8ae) ✅
+- Bug#4 Unexpected Mount and Dismount of Components 🔵
+
 ## [1.0.0] - 2023-08-15 (Unreleased)
 
 Here we would have the update steps for 1.2.4 for people to follow.

@@ -27,8 +27,8 @@ export async function POST(request: Request) {
                 "clientToken": body.utx,
             }
         });
-        if (body.phone <= 0 || body.email === '' || body.clientName === '' || body.outstanding < 0) {
-            return NextResponse.json({ success: false, code: 400, message: 'Warning: Bad Request, Invalid Client Receieved' })
+        if (body.utx == data?.clientToken || body.phone <= 0 || body.email === '' || body.clientName === '' || body.outstanding < 0) {
+            return NextResponse.json({ success: false, code: 400, message: 'Warning: Bad Request, Invalid Details Receieved' })
         } else if (data !== null) {
             const collectionName = `${data.clientId}-clients`
             await db.writeData({

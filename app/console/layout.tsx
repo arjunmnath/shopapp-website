@@ -12,13 +12,12 @@ export default function RootLayout({
 }) {
     return (
         <CookiesProvider>
-            <div className="relative">
-                <Header />
-                <CheckLogin next="" fallback="/signin" />
-                <div className="flex flex-row relative z-[-1]">
-                    <Navbar />
-                    {children}
-                </div>
+
+            <Header />
+            <CheckLogin next="" fallback="/signin" />
+            <div className="flex flex-row relative">
+                <Navbar />
+                {children}
             </div>
 
 

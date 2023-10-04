@@ -137,7 +137,6 @@ const ClientDetails: React.FC<clientDetailsProps> = ({ form, clients, isFetching
                 control={form.control}
                 name="phone"
                 render={({ field }) => {
-                    console.log(form.getValues('phone'));
                     return <FormItem>
                         <div className="flex items-center gap-4">
                             <FormLabel>Phone</FormLabel>
