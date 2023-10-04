@@ -25,7 +25,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Bug#1 Header Skeleton misalignment [9fd46ee](https://github.com/arjunmnath/shopapp-website/commit/9fd46ee42d4439fb9a74d94f73dba8aeec8f3003) ✅
 - Bug#2 Phone Number type mismatch on client and server side 🟠
 - Bug#3 Header not showing Sticky Behavior [0ac6ff26](https://github.com/arjunmnath/shopapp-website/commit/0ac6ff26e2b291b28320d5a71d04734ce665d8ae) ✅
-- Bug#4 Unexpected Mount and Dismount of Components 🔵
+- Bug#4 Unexpected Mount and Dismount of Components [e62579b](https://github.com/arjunmnath/shopapp-website/commit/e62579b78493ac4ba92d7e2e0fa5e4392db9f664) ✅
+- Bug#5 Page Overlay on Header 🔴
+- Bug#6 Login http 500 Error 🔴
 
 ## [1.0.0] - 2023-08-15 (Unreleased)
 
