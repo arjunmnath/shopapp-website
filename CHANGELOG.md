@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Side Navigation Bar 🟠
-- mount animation for side navigation bar ✅
-- UseMountAnimation hook to animate mounting ✅
+- mount animation for side navigation bar (38b10944) ✅
+- UseMountAnimation hook to animate mounting (38b10944) ✅
 
 ### Changed
-- Navigation: Side sheet Menu -> side bar ✅
-- Header mount animation: Hardcode -> useMountAnimation hook 🔴
+- Navigation: Side sheet Menu -> side bar (2e3daac9) ✅
+- Header mount animation: Hardcode -> useMountAnimation hook (38b10944) 🔴
 
 
 ## [1.0.0] - 2023-08-15 (Unreleased)
@@ -22,9 +22,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 Here we would have the update steps for 1.2.4 for people to follow.
  
 ### Added
- - Project Structure 
- - Client Page
- - Products Page
+ - Project Structure (2d317a4f)
+ - Client Page (2d317a4f)
+ - Products Page (2d317a4f)
 ### Changed
   
 - None
