@@ -142,19 +142,6 @@ const CommandShortcut = ({
 }
 CommandShortcut.displayName = "CommandShortcut"
 
-
-// const Components = {
-//   Command: Command,
-//   CommandDialog: CommandDialog,
-//   CommandInput: CommandInput,
-//   CommandList: CommandList,
-//   CommandEmpty: CommandEmpty,
-//   CommandGroup: CommandGroup,
-//   CommandItem: CommandItem,
-//   CommandShortcut: CommandShortcut,
-//   CommandSeparator: CommandSeparator
-// }
-// export default Components
 export {
   Command,
   CommandDialog,
