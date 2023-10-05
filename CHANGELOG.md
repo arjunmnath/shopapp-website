@@ -27,7 +27,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Bug#3 Header not showing Sticky Behavior [0ac6ff26](https://github.com/arjunmnath/shopapp-website/commit/0ac6ff26e2b291b28320d5a71d04734ce665d8ae) ✅
 - Bug#4 Unexpected Mount and Dismount of Components [e62579b](https://github.com/arjunmnath/shopapp-website/commit/e62579b78493ac4ba92d7e2e0fa5e4392db9f664) ✅
 - Bug#5 Page Overlay on Header 🔴
-- Bug#6 Login http 500 Error 🔴
+- Bug#6 Login http 500 Error [c4097db](https://github.com/arjunmnath/shopapp-website/commit/c4097dbb6f36d3e287d8e334bf4e0de7b7ca1ed4) ✅
+- Bug#7 CORS Error on Vercel 🔴
+
 
 ## [1.0.0] - 2023-08-15 (Unreleased)
 
