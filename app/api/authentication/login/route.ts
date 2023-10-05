@@ -52,10 +52,10 @@ export async function POST(request: Request) {
                 }, message: 'Warning: Credentials Doesn\'t Match Or Otp Expired', code: 303 });
             }
         } else {
-            NextResponse.json({ success: false, message: 'Warning: No Entry Found', code: 404 })
+            return NextResponse.json({ success: false, message: 'Warning: No Entry Found', code: 404 })
         }
     } catch (err) {
-        NextResponse.json({ success: false, message: 'Error: Internal Error', 'ErrorMsg': err });
+        return NextResponse.json({ success: false, message: 'Error: Internal Error', 'ErrorMsg': err });
     }
 
 }
