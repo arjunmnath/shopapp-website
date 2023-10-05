@@ -2,7 +2,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 
 
 
-const uri: any = process.env.MONGODB_URI
+const uri: any = process.env.NODE_ENV === 'development' ? process.env.MONGODB_URI : process.env.MONGODB_URI_VERCEL;
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -124,7 +124,7 @@ const readDataManyMultiple = async (params: readProps[]) => {
     try {
         await client.connect();
         const db = client.db(process.env.DB_NAME);
-        let data:{ [key: string]: any } = {}
+        let data: { [key: string]: any } = {}
         await Promise.all(params.map(async (param) => {
             const index = param.collection.split('-')[1]
             const coll = db.collection(param.collection)
