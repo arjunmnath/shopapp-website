@@ -38,6 +38,7 @@ export async function POST(request: Request) {
                 const collectionName = `${data.clientId}-clients`
                 await createCollection({ name: collectionName })
                 await createCollection({ name: `${clientId}-clients` })
+                await createCollection({ name: `${clientId}-sales` })
                 await writeData({
                     collection: collectionName,
                     data: [{

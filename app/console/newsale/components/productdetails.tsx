@@ -36,12 +36,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Fetching from '@/components/fetching'
 import Loading from '@/components/loading'
+import { Delete } from "lucide-react";
 
 const ProductSection = ({ form, products, isFetching, fetchData }: ProductSectionProps) => {
     const [popOverOpen, setPopOverOpen] = useState<boolean>(false)
     return <>
         <h2 className="text-xl font-bold tracking-tight p-4 justify-start">Product Details</h2>
-        <div className="flex flex-col gap-4 w-3/5">
+        <div className="flex flex-col gap-4 w-4/5">
             <FormField
                 control={form.control}
                 name="productId"
@@ -107,6 +108,11 @@ const ProductSection = ({ form, products, isFetching, fetchData }: ProductSectio
                                     </PopoverContent>
                                 </Popover>
                                 <FormMessage />
+                                <Button variant='ghost' onClick={(e) => {
+                                    e.preventDefault();
+                                    form.setValue("productId", undefined)
+                                    form.setValue("sellingPrice", undefined)
+                                }}><Delete /></Button>
                             </div>
                         </div>
                     </FormItem>

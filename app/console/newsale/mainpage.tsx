@@ -10,20 +10,33 @@ import { useState, useEffect, Suspense } from 'react'
 import type { Products } from "@/types/product"
 import type { Clients } from '@/types/clients'
 import dynamic from "next/dynamic"
-
-
-
+import ClientDetails from "./components/clientsection"
+import ProductSection from "./components/productdetails"
+import AddressSection from "./components/addresssection"
+import BinarySection from "./components/creditloading"
 const Page = () => {
   const FormSchema = z.object({
     clientId: z.string({
       required_error: "Please select a client.",
+    }),
+    productId: z.string({
+      required_error: "Please select a Product.",
     }),
     email: z.string().email(),
     phone: z.number().min(1000000000).max(9999999999),
     loading: z.boolean(),
     credit: z.boolean(),
     sellingPrice: z.number().min(10).max(2000),
-    qty: z.number().min(0).max(300)
+    qty: z.number().min(0).max(300),
+    sitename: z.string().min(5).max(250),
+    streetaddress: z.string().min(5).max(250),
+    city: z.string().min(5).max(250),
+    district: z.string().min(5).max(250),
+    state: z.string().min(5).max(250),
+    pin: z.number().min(550000).max(700000),
+    driverName: z.string().min(5).max(100),
+    vehicleNo: z.string().min(5).max(12),
+    remarks: z.string()
   })
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -32,23 +45,73 @@ const Page = () => {
       credit: false,
       sellingPrice: 0,
       qty: 0,
+      state: "Kerala",
+      city: "Pazhayannur",
+      pin: 680587,
+      district: "Thrissur"
     }
   })
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     toast({
-      title: "You submitted the following clientIds:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      title: "Saving..."
     })
+    const requestPayload = {
+      utx: localStorage.getItem('clitkn'),
+      clientId: data.clientId,
+      address: {
+        sitename: data.sitename,
+        streetaddress: data.streetaddress,
+        city: data.city,
+        district: data.district,
+        state: data.state,
+        pin: data.pin
+      },
+      carrier: {
+        name: data.driverName,
+        vehicleNo: data.vehicleNo,
+      },
+      product: {
+        productId: data.productId,
+        qty: data.qty,
+      },
+      remarks: data.remarks,
+      credit: data.credit,
+      loading: data.loading,
+    }
+    const res = await fetch('/api/newsale', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestPayload)
+    })
+    const content = await res.json();
+    console.log(content.message)
+    if (content.success) {
+      toast({
+        title: "Way To Go!",
+        description: "New Sale Added!",
+      })
+    } else if (content.code === 404) {
+      toast({
+        title: "Oops!",
+        description: "Something Went Wrong, Try Logging In Again!",
+        variant: 'destructive'
+      })
+    } else {
+      toast({
+        title: "Oops!",
+        description: "Something Went Wrong",
+        variant: "destructive"
+      })
+    }
+
+
   }
   const [products, setProducts] = useState<Products>([])
   const [isFetching, setIsFetching] = useState<boolean>(true)
   const [clients, setClients] = useState<Clients>([])
-
   const fetchDataServer = async () => {
     const Encrypt = await import('@/lib/encryption').then(res => res.Encrypt)
     const key = localStorage.getItem('krone')
@@ -83,29 +146,17 @@ const Page = () => {
       fetchDataServer()
     }
   }, [])
-
-  const ClientDetails = dynamic(() => import('./components/clientsection'), {
-    suspense: true
-  })
-  const ProductSection = dynamic(() => import('./components/productdetails'), {
-    suspense: true
-  });
-  const BinarySection = dynamic(() => import('./components/creditloading'), {
-    suspense: true
-  })
-  // TODO: Create a New Api for this Page ✅
   return (
-    <div className="w-full">
+    <div className="w-full ml-10">
       <Form {...form}>
         <form>
-
-          <h2 className="text-3xl font-bold tracking-tight p-4">New Sale</h2>
+          <h2 className="text-3xl font-bold tracking-tight pt-8 pl-12">New Sale</h2>
           <div className="flex flex-col justify-items-center items-center">
             <ClientDetails form={form} clients={clients} isFetching={isFetching} fetchData={fetchDataServer} />
             <ProductSection form={form} products={products} isFetching={isFetching} fetchData={fetchDataServer} />
+            <AddressSection form={form} />
             <BinarySection form={form} />
-            <Button onClick={form.handleSubmit(onSubmit)} >Submit</Button>
-
+            <Button className="mb-4" onClick={form.handleSubmit(onSubmit)} >Submit</Button>
           </div>
         </form>
       </Form>

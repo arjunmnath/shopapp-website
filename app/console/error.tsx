@@ -24,7 +24,7 @@ export default function Error({
   const { View } = useLottie(options, style);
 
   return (
-    <div className="h-max flex flex-col justify-center items-center gap-2">
+    <div className="h-max w-full flex flex-col justify-center items-center gap-2">
       {View}
       <h2 className='text-xl'>Something went wrong!</h2>
       <h2 className='text-slate-400 text-sm'>{error.message}</h2>

@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Menu from "./header-utils/menu";
 import { Assests } from "@/app/static/assest";
 import FullScreenToggle from "./header-utils/fullscreen";
-import useMountAnimation from "@/components/usedelay";
+import useMountAnimation from "@/components/usemountanimation";
 
 
 const Header: React.FC = () => {
@@ -25,8 +25,8 @@ const Header: React.FC = () => {
       setIsLoggedIn(JSON.parse(_tmp).val)
     }
   }, []);
-  return <div style={false ? useMount.mountedStyle : useMount.unmountedStyle}>
-    <div className="sticky bg-background h-16 box shadow-lg flex items-center">
+  return <div className="sticky z-100 w-full h-16 top-0 left-0" style={useMount.mount ? useMount.mountedStyle : useMount.unmountedStyle}>
+    <div className="bg-background h-full box shadow-lg flex items-center">
       <>{useMount.ContentOrSkeleton}</>
     </div>
   </div>;
@@ -40,12 +40,12 @@ const HeaderSkeleton: React.FC = () => {
       <div className="w-3/5 flex flex-row justify-center items-center">
         <Skeleton className="p-2 w-4/5 h-10" />
       </div>
-      <div className="px-4 flex flex-row w-1/5 justify-end gap-6">
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
-        <Skeleton className="h-10 w-10  rounded-full" />
+      <div className="px-4 flex flex-row w-1/5 justify-end gap-4">
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
+        <Skeleton className="h-[2.25rem] w-[2.25rem]  rounded-3xl" />
       </div>
     </>
   );
